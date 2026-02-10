@@ -42,13 +42,14 @@ final class ExchangeListViewModel {
   func fetchExchanges() {
     onLoadingStatusChanged?(true)
     
-    service.fetchExchanges { [weak self] result in
+    service.fetchExchangesMap { [weak self] result in
       guard let self = self else { return }
       self.onLoadingStatusChanged?(false)
       
       switch result {
-      case .success(let fetchedExchanges):
-        self.exchanges = fetchedExchanges
+      case .success(let fetchedExchangesMap):
+        let isActiveList = fetchedExchangesMap.map { $0.isActive }
+        let teste = isActiveList
         self.onDataUpdated?()
       case .failure(let error):
         self.onError?(error.localizedDescription)
