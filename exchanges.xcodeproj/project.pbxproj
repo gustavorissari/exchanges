@@ -33,7 +33,7 @@
 		B07A7A712F3BB60C00FEBF9F /* Exceptions for "exchanges" folder in "exchanges" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Application/Info.plist,
 			);
 			target = B07A7A482F3BB60A00FEBF9F /* exchanges */;
 		};
@@ -291,7 +291,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3NC455DU88;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = exchanges/Info.plist;
+				INFOPLIST_FILE = exchanges/Application/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Exchanges;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -326,7 +326,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3NC455DU88;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = exchanges/Info.plist;
+				INFOPLIST_FILE = exchanges/Application/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Exchanges;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
