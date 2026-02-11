@@ -7,7 +7,8 @@ final class ExchangeListView: UIView {
     let table = UITableView()
     table.translatesAutoresizingMaskIntoConstraints = false
     table.backgroundColor = .systemBackground
-    table.register(UITableViewCell.self, forCellReuseIdentifier: "ExchangeCell")
+    table.register(ExchangeViewCell.self, forCellReuseIdentifier: ExchangeViewCell.identifier)
+    
     return table
   }()
   

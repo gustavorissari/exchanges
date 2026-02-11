@@ -3,7 +3,7 @@ import Foundation
 final class ExchangeListViewModel {
   
   // MARK: - Properties
-  private var exchanges: [ExchangeModel] = []
+  private var exchangesInfo: [String: ExchangeInfoModel] = [:]
   weak var coordinator: ExchangeCoordinator?
   private let service: ExchangeService
   
@@ -19,47 +19,45 @@ final class ExchangeListViewModel {
   
   // MARK: - TableView Data Accessors
   var numberOfRows: Int {
-    return exchanges.count
+    exchangesInfo.count
   }
   
-  func exchange(at index: Int) -> ExchangeModel {
-    return exchanges[index]
-  }
-  
-  // MARK: - Formatting Logic
-  func getFormattedVolume(for index: Int) -> String {
-    guard let volume = exchanges[index].spotVolumeUsd else { return "$ 0.00" }
-    
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .currency
-    formatter.currencyCode = "USD"
-    formatter.maximumFractionDigits = 2
-    
-    return formatter.string(from: NSNumber(value: volume)) ?? "$ 0.00"
+  func getExchangeInfo(at id: Int) -> ExchangeInfoModel? {
+    exchangesInfo["\(id)"]
   }
   
   // MARK: - Networking
-  func fetchExchanges() {
-    onLoadingStatusChanged?(true)
-    
-    service.fetchExchangesMap { [weak self] result in
-      guard let self = self else { return }
-      self.onLoadingStatusChanged?(false)
+  func fetchExchangesMap() {
+    Task { [weak self] in
+      await MainActor.run { self?.onLoadingStatusChanged?(true) }
       
-      switch result {
-      case .success(let fetchedExchangesMap):
-        let isActiveList = fetchedExchangesMap.map { $0.isActive }
-        let teste = isActiveList
-        self.onDataUpdated?()
-      case .failure(let error):
-        self.onError?(error.localizedDescription)
+      do {
+        guard let self = self else { return }
+        
+        let fetchedExchangesMap = try await service.fetchExchangesMap()
+        let isActiveList = fetchedExchangesMap.filter { $0.isActive == 1 }
+        let idsString = isActiveList.compactMap { String($0.id ?? 0) }.joined(separator: ",")
+        let fetchedExchangesInfo = try await service.fetchExchangesInfo(ids: idsString)
+        
+        await MainActor.run {
+          self.exchangesInfo = fetchedExchangesInfo ?? [:]
+          self.onDataUpdated?()
+          self.onLoadingStatusChanged?(false)
+        }
+        
+      } catch {
+        print("DEBUG: \(error.localizedDescription)")
+        await MainActor.run {
+          self?.onError?(error.localizedDescription)
+          self?.onLoadingStatusChanged?(false)
+        }
       }
     }
   }
   
   // MARK: - Navigation
-  func didSelectExchange(at index: Int) {
-    let selectedExchange = exchanges[index]
-    coordinator?.goToDetails(exchange: selectedExchange)
+  func didSelectExchange(at id: Int) {
+    guard let selectedExchangeInfo = exchangesInfo["\(id)"] else { return }
+    coordinator?.goToDetails(with: selectedExchangeInfo)
   }
 }

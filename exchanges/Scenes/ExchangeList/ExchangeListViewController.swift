@@ -24,7 +24,7 @@ final class ExchangeListViewController: UIViewController {
     setupTableView()
     bindViewModel()
     
-    viewModel.fetchExchanges()
+    viewModel.fetchExchangesMap()
   }
   
   private func setupNavigation() {
@@ -53,13 +53,17 @@ extension ExchangeListViewController: UITableViewDataSource, UITableViewDelegate
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "ExchangeCell", for: indexPath)
-    let exchange = viewModel.exchange(at: indexPath.row)
+    guard let cell = tableView.dequeueReusableCell(
+      withIdentifier: ExchangeViewCell.identifier,
+      for: indexPath
+    ) as? ExchangeViewCell else {
+      return UITableViewCell()
+    }
     
-    var content = cell.defaultContentConfiguration()
-    content.text = exchange.name
-    content.secondaryText = viewModel.getFormattedVolume(for: indexPath.row)
-    cell.contentConfiguration = content
+    if let exchangeSummary = viewModel.getExchangeInfo(at: indexPath.row) {
+      cell.configure(with: exchangeSummary)
+    }
+    
     
     return cell
   }

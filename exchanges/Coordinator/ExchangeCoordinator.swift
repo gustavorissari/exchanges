@@ -15,7 +15,7 @@ class ExchangeCoordinator: Coordinator {
     navigationController.pushViewController(viewController, animated: true)
   }
   
-  func goToDetails(exchange: ExchangeModel) {
+  func goToDetails(with exchangeInfo: ExchangeInfoModel) {
 //    let viewModel = ExchangeDetailViewModel(exchange: exchange)
 //    let viewController = ExchangeDetailViewController(viewModel: viewModel)
 //

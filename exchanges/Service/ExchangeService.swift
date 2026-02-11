@@ -2,7 +2,8 @@ import Foundation
 
 // MARK: - Protocol
 protocol ExchangeServiceProtocol {
-  func fetchExchangesMap(completion: @escaping (Result<[ExchangeMapModel], NetworkError>) -> Void)
+  func fetchExchangesMap() async throws -> [ExchangeMapModel]
+  func fetchExchangesInfo(ids: String) async throws -> [String: ExchangeInfoModel]?
 }
 
 // MARK: - Service
@@ -17,26 +18,33 @@ final class ExchangeService: ExchangeServiceProtocol {
   // MARK: - Routes
   enum Route {
     case map
-    case info(id: Int)
+    case info(ids: String)
     case assets(id: Int)
     
     var path: String {
       switch self {
       case .map: return "/v1/exchange/map"
-      case .info(let id): return "/v1/exchange/info?id=\(id)"
+      case .info(let ids): return "/v1/exchange/info?id=\(ids)"
       case .assets(let id): return "/v1/exchange/assets?id=\(id)"
       }
     }
   }
   
-  func fetchExchangesMap(completion: @escaping (Result<[ExchangeMapModel], NetworkError>) -> Void) {
-    networkManager.request(endpoint: Route.map.path, method: "GET") { (result: Result<CMCResponse, NetworkError>) in
-      switch result {
-      case .success(let response):
-        completion(.success(response.data))
-      case .failure(let error):
-        completion(.failure(error))
-      }
-    }
+  func fetchExchangesMap() async throws -> [ExchangeMapModel] {
+    let response: ResponseDTO<[ExchangeMapModel]> = try await networkManager.request(
+      endpoint: Route.map.path,
+      method: .GET
+    )
+    
+    return response.data
+  }
+  
+  func fetchExchangesInfo(ids: String) async throws -> [String: ExchangeInfoModel]? {
+    let response: ResponseDTO<[String: ExchangeInfoModel]> = try await networkManager.request(
+      endpoint: Route.info(ids: ids).path,
+      method: .GET
+    )
+    
+    return response.data
   }
 }
