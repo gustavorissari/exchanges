@@ -7,13 +7,13 @@ final class ExchangeViewCell: UITableViewCell {
   
   // MARK: - UI Components
   private let iconImageView: UIImageView = {
-    let iv = UIImageView()
-    iv.contentMode = .scaleAspectFit
-    iv.backgroundColor = .systemGray6
-    iv.layer.cornerRadius = 8
-    iv.clipsToBounds = true
-    iv.translatesAutoresizingMaskIntoConstraints = false
-    return iv
+    let imageView = UIImageView()
+    imageView.contentMode = .scaleAspectFit
+    imageView.backgroundColor = .systemGray6
+    imageView.layer.cornerRadius = 8
+    imageView.clipsToBounds = true
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    return imageView
   }()
   
   private let contentStack: UIStackView = {
@@ -48,6 +48,8 @@ final class ExchangeViewCell: UITableViewCell {
   // MARK: - Init
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    accessoryType = .disclosureIndicator
+    tintColor = .systemGray
     setupView()
   }
   

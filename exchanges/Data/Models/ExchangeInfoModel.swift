@@ -2,7 +2,7 @@ import Foundation
 
 struct ExchangeInfoModel: Decodable {
   let id: Int?
-  let name: String
+  let name: String?
   let logo: String?
   let spotVolumeUsd: Double?
   let dateLaunched: String?

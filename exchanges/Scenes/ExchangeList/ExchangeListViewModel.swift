@@ -7,7 +7,7 @@ final class ExchangeListViewModel {
   weak var coordinator: ExchangeCoordinator?
   private let service: ExchangeService
   
-  // MARK: - Callbacks (Bindings)
+  // MARK: - Callbacks
   var onDataUpdated: (() -> Void)?
   var onError: ((String) -> Void)?
   var onLoadingStatusChanged: ((Bool) -> Void)?
@@ -47,7 +47,6 @@ final class ExchangeListViewModel {
         }
         
       } catch {
-        print("DEBUG: \(error.localizedDescription)")
         await MainActor.run {
           self?.onError?(error.localizedDescription)
           self?.onLoadingStatusChanged?(false)

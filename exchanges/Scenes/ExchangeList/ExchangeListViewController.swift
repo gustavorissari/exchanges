@@ -5,6 +5,15 @@ final class ExchangeListViewController: UIViewController {
   private let viewModel: ExchangeListViewModel
   private let contentView = ExchangeListView()
   
+  // MARK: - UI Components
+  private let loadingIndicator: UIActivityIndicatorView = {
+    let indicator = UIActivityIndicatorView(style: .large)
+    indicator.color = .systemGray
+    indicator.hidesWhenStopped = true
+    indicator.translatesAutoresizingMaskIntoConstraints = false
+    return indicator
+  }()
+  
   // MARK: - Init
   init(viewModel: ExchangeListViewModel) {
     self.viewModel = viewModel
@@ -22,6 +31,8 @@ final class ExchangeListViewController: UIViewController {
     super.viewDidLoad()
     setupNavigation()
     setupTableView()
+    setupLoadingIndicator()
+    setupConstraints()
     bindViewModel()
     
     viewModel.fetchExchangesMap()
@@ -43,6 +54,27 @@ final class ExchangeListViewController: UIViewController {
         self?.contentView.tableView.reloadData()
       }
     }
+    
+    viewModel.onLoadingStatusChanged = { [weak self] isLoading in
+      DispatchQueue.main.async {
+        if isLoading {
+          self?.loadingIndicator.startAnimating()
+        } else {
+          self?.loadingIndicator.stopAnimating()
+        }
+      }
+    }
+  }
+  
+  private func setupLoadingIndicator() {
+    view.addSubview(loadingIndicator)
+  }
+  
+  private func setupConstraints() {
+    NSLayoutConstraint.activate([
+      loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+    ])
   }
 }
 
