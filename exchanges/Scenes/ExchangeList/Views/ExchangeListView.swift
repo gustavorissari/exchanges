@@ -4,12 +4,12 @@ final class ExchangeListView: UIView {
   
   // MARK: - UI Components
   lazy var tableView: UITableView = {
-    let table = UITableView()
-    table.translatesAutoresizingMaskIntoConstraints = false
-    table.backgroundColor = .systemBackground
-    table.register(ExchangeViewCell.self, forCellReuseIdentifier: ExchangeViewCell.identifier)
+    let tableView = UITableView()
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    tableView.backgroundColor = .systemBackground
+    tableView.register(ExchangeViewCell.self, forCellReuseIdentifier: ExchangeViewCell.identifier)
     
-    return table
+    return tableView
   }()
   
   // MARK: - Init

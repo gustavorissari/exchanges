@@ -64,7 +64,6 @@ extension ExchangeListViewController: UITableViewDataSource, UITableViewDelegate
       cell.configure(with: exchangeSummary)
     }
     
-    
     return cell
   }
   

@@ -3,7 +3,7 @@ import Foundation
 final class ExchangeListViewModel {
   
   // MARK: - Properties
-  private var exchangesInfo: [String: ExchangeInfoModel] = [:]
+  private var orderedExchanges: [ExchangeInfoModel] = []
   weak var coordinator: ExchangeCoordinator?
   private let service: ExchangeService
   
@@ -19,11 +19,11 @@ final class ExchangeListViewModel {
   
   // MARK: - TableView Data Accessors
   var numberOfRows: Int {
-    exchangesInfo.count
+    orderedExchanges.count
   }
   
-  func getExchangeInfo(at id: Int) -> ExchangeInfoModel? {
-    exchangesInfo["\(id)"]
+  func getExchangeInfo(at index: Int) -> ExchangeInfoModel? {
+    orderedExchanges[index]
   }
   
   // MARK: - Networking
@@ -40,7 +40,8 @@ final class ExchangeListViewModel {
         let fetchedExchangesInfo = try await service.fetchExchangesInfo(ids: idsString)
         
         await MainActor.run {
-          self.exchangesInfo = fetchedExchangesInfo ?? [:]
+          let exchangesInfo = fetchedExchangesInfo ?? [:]
+          self.orderedExchanges = exchangesInfo.values.sorted { ($0.spotVolumeUsd ?? 0) > ($1.spotVolumeUsd ?? 0) }
           self.onDataUpdated?()
           self.onLoadingStatusChanged?(false)
         }
@@ -56,8 +57,8 @@ final class ExchangeListViewModel {
   }
   
   // MARK: - Navigation
-  func didSelectExchange(at id: Int) {
-    guard let selectedExchangeInfo = exchangesInfo["\(id)"] else { return }
+  func didSelectExchange(at index: Int) {
+    let selectedExchangeInfo = orderedExchanges[index]
     coordinator?.goToDetails(with: selectedExchangeInfo)
   }
 }

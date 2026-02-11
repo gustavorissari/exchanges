@@ -1,7 +1,7 @@
 import Foundation
 
 struct ExchangeInfoModel: Decodable {
-  let id: String?
+  let id: Int?
   let name: String
   let logo: String?
   let spotVolumeUsd: Double?
@@ -28,9 +28,9 @@ struct ExchangeInfoModel: Decodable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     name = try container.decode(String.self, forKey: .name)
     if let idInt = try? container.decode(Int.self, forKey: .id) {
-      id = String(idInt)
+      id = idInt
     } else if let idString = try? container.decode(String.self, forKey: .id) {
-      id = idString
+      id = Int(idString)
     } else {
       id = nil
     }
