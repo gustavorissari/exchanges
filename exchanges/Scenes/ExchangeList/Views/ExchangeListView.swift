@@ -2,6 +2,9 @@ import UIKit
 
 final class ExchangeListView: UIView {
   
+  // MARK: - Callbacks
+  var onRefreshPulled: (() -> Void)?
+  
   // MARK: - UI Components
   lazy var tableView: UITableView = {
     let tableView = UITableView()
@@ -12,6 +15,12 @@ final class ExchangeListView: UIView {
     return tableView
   }()
   
+  private let refreshControl: UIRefreshControl = {
+    let refresh = UIRefreshControl()
+    refresh.tintColor = .systemGray
+    return refresh
+  }()
+  
   // MARK: - Init
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -19,6 +28,14 @@ final class ExchangeListView: UIView {
   }
   
   required init?(coder: NSCoder) { nil }
+  
+  func isRefreshing() -> Bool {
+    refreshControl.isRefreshing
+  }
+  
+  func stopLoading() {
+    refreshControl.endRefreshing()
+  }
 }
 
 // MARK: - ViewConfiguration
@@ -38,5 +55,12 @@ extension ExchangeListView: ViewConfiguration {
   
   func configureViews() {
     backgroundColor = .systemBackground
+    
+    tableView.refreshControl = refreshControl
+    refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+  }
+  
+  @objc private func handleRefresh() {
+      onRefreshPulled?()
   }
 }

@@ -37,17 +37,29 @@
 		B07A7A712F3BB60C00FEBF9F /* Exceptions for "exchanges" folder in "exchanges" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"/Localized: Resources/Localizable.strings",
 				Application/Info.plist,
 			);
 			target = B07A7A482F3BB60A00FEBF9F /* exchanges */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		B07A7AE92F3E05EB00FEBF9F /* Exceptions for "exchanges" folder in "Compile Sources" phase from "exchanges" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = B07A7A452F3BB60A00FEBF9F /* Sources */;
+			membershipExceptions = (
+				"/Localized: Resources/Localizable.strings",
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B07A7A4B2F3BB60A00FEBF9F /* exchanges */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				B07A7A712F3BB60C00FEBF9F /* Exceptions for "exchanges" folder in "exchanges" target */,
+				B07A7AE92F3E05EB00FEBF9F /* Exceptions for "exchanges" folder in "Compile Sources" phase from "exchanges" target */,
 			);
 			path = exchanges;
 			sourceTree = "<group>";

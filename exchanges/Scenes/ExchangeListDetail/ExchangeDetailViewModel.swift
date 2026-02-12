@@ -1,10 +1,12 @@
 import Foundation
 
+@MainActor
 final class ExchangeDetailViewModel {
   
   // MARK: - Properties
   private let exchangeInfo: ExchangeInfoModel
   private(set) var currencies: [CurrencyModel] = []
+  private let service: ExchangeServiceProtocol
   
   // MARK: - Callbacks
   var onCurrenciesUpdated: (() -> Void)?
@@ -12,50 +14,74 @@ final class ExchangeDetailViewModel {
   var onLoadingStatusChanged: ((Bool) -> Void)?
   
   // MARK: - Init
-  init(exchangeInfo: ExchangeInfoModel) {
+  init(
+    exchangeInfo: ExchangeInfoModel,
+    service: ExchangeServiceProtocol
+  ) {
     self.exchangeInfo = exchangeInfo
+    self.service = service
   }
   
   // MARK: - Basic Info Outputs
   var id: String {
-    return "\(exchangeInfo.id ?? 0)"
+    exchangeInfo.id ?? String()
   }
   
-  var name: String { exchangeInfo.name ?? "Unknown" }
+  var name: String { exchangeInfo.name ?? String() }
   
   var logoUrl: String? { exchangeInfo.logo }
   
   var description: String {
-    exchangeInfo.description ?? "No description available."
+    exchangeInfo.description ?? L10n.EmptyText.empty
   }
   
   var websiteUrl: String? {
-    return exchangeInfo.urls?.website?.first
+    exchangeInfo.urls?.website?.first
   }
   
   var volume: String {
-    return exchangeInfo.spotVolumeUsd?.toCurrency() ?? "N/A"
+    exchangeInfo.spotVolumeUsd?.toCurrency() ?? L10n.EmptyText.empty
   }
   
   var launchDate: String {
-    return exchangeInfo.dateLaunched?.toDisplayDate() ?? "N/A"
+    exchangeInfo.dateLaunched?.toDisplayDate() ?? L10n.EmptyText.empty
   }
   
   // MARK: - Fee Outputs
   var makerFee: String {
-    guard let fee = exchangeInfo.makerFee else { return "0.0%" }
+    guard let fee = exchangeInfo.makerFee else { return L10n.EmptyText.empty }
+    
     return "\(fee)%"
   }
   
   var takerFee: String {
-    guard let fee = exchangeInfo.takerFee else { return "0.0%" }
+    guard let fee = exchangeInfo.takerFee else { return L10n.EmptyText.empty }
+    
     return "\(fee)%"
   }
   
-  // MARK: - Currencies Logic
-  /// Método para atualizar a lista de moedas após a chamada do Service
-  func updateCurrencies(_ currencies: [CurrencyModel]) {
-    self.currencies = currencies
-    self.onCurrenciesUpdated?()
+  func fetchExchangesAssets() async {
+    onLoadingStatusChanged?(true)
+    defer { onLoadingStatusChanged?(false) }
+    
+    do {
+      let exchangeAssets = try await service.fetchExchangesAssets(id: id)
+      handleSuccess(exchangeAssets: exchangeAssets)
+    } catch {
+      handleFailure(error: error)
+    }
+  }
+  
+  private func handleSuccess(exchangeAssets: [ExchangeAssetsModel]) {
+    exchangeAssets.forEach { exchangeAsset in
+      guard let currency = exchangeAsset.currency else { return }
+      
+      currencies.append(currency)
+    }
+    onCurrenciesUpdated?()
+  }
+  
+  private func handleFailure(error: Error) {
+    onError?(error.localizedDescription)
   }
 }

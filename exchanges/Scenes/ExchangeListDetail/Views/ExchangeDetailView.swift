@@ -48,7 +48,6 @@ final class ExchangeDetailView: UIView {
     return label
   }()
   
-  // Labels de Informação Adicional
   private let idLabel: UILabel = {
     let label = UILabel()
     label.font = .systemFont(ofSize: 14)
@@ -86,7 +85,7 @@ final class ExchangeDetailView: UIView {
   
   private let currenciesTitleLabel: UILabel = {
     let label = UILabel()
-    label.text = "Currencies"
+    label.text = L10n.ExchangeDetail.currenciesTitle
     label.font = .systemFont(ofSize: 20, weight: .bold)
     return label
   }()
@@ -120,10 +119,10 @@ final class ExchangeDetailView: UIView {
   func configure(with viewModel: ExchangeDetailViewModel) {
     nameLabel.text = viewModel.name
     descriptionLabel.text = viewModel.description
-    idLabel.text = "ID: \(viewModel.id)"
-    feeLabel.text = "Fees: Maker \(viewModel.makerFee) / Taker \(viewModel.takerFee)"
-    launchDateLabel.text = "Launched: \(viewModel.launchDate)"
-    websiteLabel.text = viewModel.websiteUrl ?? "No website"
+    idLabel.text = String(format: L10n.ExchangeDetail.idLabel, viewModel.id)
+    feeLabel.text = String(format: L10n.ExchangeDetail.feeLabel, viewModel.makerFee, viewModel.takerFee)
+    launchDateLabel.text = String(format: L10n.ExchangeDetail.launchedLabel, viewModel.launchDate)
+    websiteLabel.text = viewModel.websiteUrl ?? L10n.EmptyText.empty
     
     if let urlString = viewModel.logoUrl, let url = URL(string: urlString) {
       logoImageView.kf.setImage(with: url, placeholder: UIImage(systemName: "bitcoinsign.circle.fill"))
@@ -144,13 +143,15 @@ final class ExchangeDetailView: UIView {
   private func createCurrencyRow(name: String, price: Double) -> UIView {
     let label = UILabel()
     label.font = .systemFont(ofSize: 14, weight: .medium)
-    label.text = "• \(name): \(price.toCurrency())"
+    label.text = String(format: L10n.ExchangeDetail.currencyRow, name, price.toCurrency())
     label.numberOfLines = 1
     return label
   }
-  
-  // MARK: - Setup
-  private func setupView() {
+}
+
+// MARK: - ViewConfiguration
+extension ExchangeDetailView: ViewConfiguration {
+  func buildHierarchy() {
     backgroundColor = .systemBackground
     
     addSubview(scrollView)
@@ -158,7 +159,6 @@ final class ExchangeDetailView: UIView {
     contentView.addSubview(logoImageView)
     contentView.addSubview(mainStackView)
     
-    // Ordem lógica na Stack
     mainStackView.addArrangedSubview(nameLabel)
     mainStackView.addArrangedSubview(idLabel)
     mainStackView.addArrangedSubview(launchDateLabel)
@@ -166,7 +166,6 @@ final class ExchangeDetailView: UIView {
     mainStackView.addArrangedSubview(websiteLabel)
     mainStackView.addArrangedSubview(descriptionLabel)
     
-    // Espaçador visual antes das moedas
     let separator = UIView()
     separator.backgroundColor = .systemGray5
     separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
@@ -174,32 +173,26 @@ final class ExchangeDetailView: UIView {
     
     mainStackView.addArrangedSubview(currenciesTitleLabel)
     mainStackView.addArrangedSubview(currenciesStackView)
-    
-    setupConstraints()
   }
   
-  private func setupConstraints() {
+  func setupConstraints() {
     NSLayoutConstraint.activate([
-      // ScrollView
       scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
       scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
       scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
       scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
       
-      // ContentView
       contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
       contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
       contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
       contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
       contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
       
-      // Logo
       logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
       logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
       logoImageView.heightAnchor.constraint(equalToConstant: 100),
       logoImageView.widthAnchor.constraint(equalToConstant: 100),
       
-      // Main Stack
       mainStackView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 24),
       mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
       mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),

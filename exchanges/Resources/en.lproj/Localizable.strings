@@ -1,0 +1,10 @@
+"exchanges_list_title" = "Exchanges";
+"exchanges_cell_launched_label" = "Launched: %@";
+"exchange_detail_currencies_title" = "Currencies";
+"exchange_detail_currency_row" = "• %@: %@";
+"exchange_detail_id_label" = "ID: %@";
+"exchange_detail_fee_label" = "Fees: Maker %@ / Taker %@";
+"exchange_detail_launched_label" = "Launched: %@";
+"empty_text" = "-";
+"error_alert_title" = "Oops!";
+"error_button_ok" = "OK";

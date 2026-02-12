@@ -35,24 +35,33 @@ final class ExchangeDetailViewController: UIViewController {
     setupLoadingIndicator()
     setupConstraints()
     customView.configure(with: viewModel)
+    
+    Task {
+      await viewModel.fetchExchangesAssets()
+    }
   }
   
+  @MainActor
   private func setupBindings() {
     customView.onWebsiteTapped = { [weak self] in
-      guard let self = self else { return }
+      guard let self else { return }
       
       let urlPath = self.viewModel.websiteUrl ?? ""
       self.coordinator?.openWebsite(urlPath: urlPath)
     }
     
     viewModel.onLoadingStatusChanged = { [weak self] isLoading in
-      DispatchQueue.main.async {
-        if isLoading {
-          self?.loadingIndicator.startAnimating()
-        } else {
-          self?.loadingIndicator.stopAnimating()
-        }
+      if isLoading {
+        self?.loadingIndicator.startAnimating()
+      } else {
+        self?.loadingIndicator.stopAnimating()
       }
+    }
+    
+    viewModel.onCurrenciesUpdated = { [weak self] in
+      guard let self else { return }
+      
+      self.customView.configure(with: self.viewModel)
     }
   }
   
@@ -67,3 +76,5 @@ final class ExchangeDetailViewController: UIViewController {
     ])
   }
 }
+
+extension ExchangeDetailViewController: ErrorAlertPresentable { }

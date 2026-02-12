@@ -3,7 +3,7 @@ import Kingfisher
 
 final class ExchangeViewCell: UITableViewCell {
   
-  static let identifier = "ExchangeViewCell"
+  static let identifier = "ExchangeCell"
   
   // MARK: - UI Components
   private let iconImageView: UIImageView = {
@@ -81,7 +81,7 @@ final class ExchangeViewCell: UITableViewCell {
     }
     
     if let date = model.dateLaunched {
-      dateLabel.text = "Lançada em: \(date.toDisplayDate())"
+      dateLabel.text = String(format: L10n.ExchangeCell.launchedLabel, date.toDisplayDate())
       dateLabel.isHidden = false
     } else {
       dateLabel.isHidden = true
@@ -95,20 +95,20 @@ final class ExchangeViewCell: UITableViewCell {
       )
     }
   }
-  
-  // MARK: - Setup
-  private func setupView() {
+}
+
+// MARK: - ViewConfiguration
+extension ExchangeViewCell: ViewConfiguration {
+  func buildHierarchy() {
     contentView.addSubview(iconImageView)
     contentView.addSubview(contentStack)
     
     contentStack.addArrangedSubview(titleLabel)
     contentStack.addArrangedSubview(volumeLabel)
     contentStack.addArrangedSubview(dateLabel)
-    
-    setupConstraints()
   }
   
-  private func setupConstraints() {
+  func setupConstraints() {
     NSLayoutConstraint.activate([
       iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
       iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),

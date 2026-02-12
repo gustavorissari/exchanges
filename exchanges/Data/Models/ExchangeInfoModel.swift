@@ -1,7 +1,7 @@
 import Foundation
 
 struct ExchangeInfoModel: Decodable {
-  let id: Int?
+  let id: String?
   let name: String?
   let logo: String?
   let spotVolumeUsd: Double?
@@ -23,14 +23,14 @@ struct ExchangeInfoModel: Decodable {
     case takerFee = "taker_fee"
   }
   
-  // MARK: - Custom Init para tratar String/Int
+  // MARK: - Custom Init
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     name = try container.decode(String.self, forKey: .name)
     if let idInt = try? container.decode(Int.self, forKey: .id) {
-      id = idInt
+      id = String(idInt)
     } else if let idString = try? container.decode(String.self, forKey: .id) {
-      id = Int(idString)
+      id = idString
     } else {
       id = nil
     }

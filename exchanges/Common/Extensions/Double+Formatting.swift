@@ -5,7 +5,8 @@ extension Double {
     let formatter = NumberFormatter()
     formatter.numberStyle = .currency
     formatter.currencyCode = "USD"
-    formatter.maximumFractionDigits = 0
-    return formatter.string(from: NSNumber(value: self)) ?? "$ 0"
+    formatter.minimumFractionDigits = 2
+    formatter.maximumFractionDigits = 2
+    return formatter.string(from: NSNumber(value: self)) ?? "$ 0.00"
   }
 }

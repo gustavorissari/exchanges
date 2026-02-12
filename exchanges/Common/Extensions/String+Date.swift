@@ -9,7 +9,7 @@ extension String {
     
     let displayFormatter = DateFormatter()
     displayFormatter.dateStyle = .medium
-    displayFormatter.locale = Locale(identifier: "pt_BR")
+    displayFormatter.locale = Locale(identifier: "en_US")
     return displayFormatter.string(from: date)
   }
 }

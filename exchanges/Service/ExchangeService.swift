@@ -4,6 +4,7 @@ import Foundation
 protocol ExchangeServiceProtocol {
   func fetchExchangesMap() async throws -> [ExchangeMapModel]
   func fetchExchangesInfo(ids: String) async throws -> [String: ExchangeInfoModel]?
+  func fetchExchangesAssets(id: String) async throws -> [ExchangeAssetsModel]
 }
 
 // MARK: - Service
@@ -19,7 +20,7 @@ final class ExchangeService: ExchangeServiceProtocol {
   enum Route {
     case map
     case info(ids: String)
-    case assets(id: Int)
+    case assets(id: String)
     
     var path: String {
       switch self {
@@ -42,6 +43,15 @@ final class ExchangeService: ExchangeServiceProtocol {
   func fetchExchangesInfo(ids: String) async throws -> [String: ExchangeInfoModel]? {
     let response: ResponseDTO<[String: ExchangeInfoModel]> = try await networkManager.request(
       endpoint: Route.info(ids: ids).path,
+      method: .GET
+    )
+    
+    return response.data
+  }
+  
+  func fetchExchangesAssets(id: String) async throws -> [ExchangeAssetsModel] {
+    let response: ResponseDTO<[ExchangeAssetsModel]> = try await networkManager.request(
+      endpoint: Route.assets(id: id).path,
       method: .GET
     )
     

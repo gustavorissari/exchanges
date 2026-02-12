@@ -1,63 +1,64 @@
 import Foundation
 
+@MainActor
 final class ExchangeListViewModel {
   
-  // MARK: - Properties
   private var orderedExchanges: [ExchangeInfoModel] = []
   weak var coordinator: ExchangeCoordinator?
-  private let service: ExchangeService
+  private let service: ExchangeServiceProtocol
   
-  // MARK: - Callbacks
   var onDataUpdated: (() -> Void)?
   var onError: ((String) -> Void)?
   var onLoadingStatusChanged: ((Bool) -> Void)?
   
-  // MARK: - Init
-  init(service: ExchangeService = ExchangeService()) {
+  init(service: ExchangeServiceProtocol) {
     self.service = service
   }
   
-  // MARK: - TableView Data Accessors
   var numberOfRows: Int {
     orderedExchanges.count
   }
   
   func getExchangeInfo(at index: Int) -> ExchangeInfoModel? {
-    orderedExchanges[index]
+    guard orderedExchanges.indices.contains(index) else { return nil }
+    return orderedExchanges[index]
   }
   
-  // MARK: - Networking
-  func fetchExchangesMap() {
-    Task { [weak self] in
-      await MainActor.run { self?.onLoadingStatusChanged?(true) }
+  func fetchExchangesMap() async {
+    onLoadingStatusChanged?(true)
+    defer { onLoadingStatusChanged?(false) }
+    
+    do {
+      let fetchedExchangesMap = try await service.fetchExchangesMap()
       
-      do {
-        guard let self = self else { return }
-        
-        let fetchedExchangesMap = try await service.fetchExchangesMap()
-        let isActiveList = fetchedExchangesMap.filter { $0.isActive == 1 }
-        let idsString = isActiveList.compactMap { String($0.id ?? 0) }.joined(separator: ",")
-        let fetchedExchangesInfo = try await service.fetchExchangesInfo(ids: idsString)
-        
-        await MainActor.run {
-          let exchangesInfo = fetchedExchangesInfo ?? [:]
-          self.orderedExchanges = exchangesInfo.values.sorted { ($0.spotVolumeUsd ?? 0) > ($1.spotVolumeUsd ?? 0) }
-          self.onDataUpdated?()
-          self.onLoadingStatusChanged?(false)
-        }
-        
-      } catch {
-        await MainActor.run {
-          self?.onError?(error.localizedDescription)
-          self?.onLoadingStatusChanged?(false)
-        }
-      }
+      let idsString = fetchedExchangesMap
+        .filter { $0.isActive == 1 }
+        .compactMap { $0.id }
+        .map(String.init)
+        .joined(separator: ",")
+      
+      let fetchedExchangesInfo = try await service.fetchExchangesInfo(ids: idsString)
+      
+      handleSuccess(exchangesInfo: fetchedExchangesInfo)
+    } catch {
+      handleFailure(error: error)
     }
   }
   
-  // MARK: - Navigation
+  private func handleSuccess(exchangesInfo: [String: ExchangeInfoModel]?) {
+    orderedExchanges = exchangesInfo?
+      .values
+      .sorted { ($0.spotVolumeUsd ?? 0) > ($1.spotVolumeUsd ?? 0) } ?? []
+    
+    onDataUpdated?()
+  }
+  
+  private func handleFailure(error: Error) {
+    onError?(error.localizedDescription)
+  }
+  
   func didSelectExchange(at index: Int) {
-    let selectedExchangeInfo = orderedExchanges[index]
-    coordinator?.goToDetails(with: selectedExchangeInfo)
+    guard orderedExchanges.indices.contains(index) else { return }
+    coordinator?.goToDetails(with: orderedExchanges[index])
   }
 }

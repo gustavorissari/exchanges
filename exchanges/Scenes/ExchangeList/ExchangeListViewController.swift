@@ -35,11 +35,13 @@ final class ExchangeListViewController: UIViewController {
     setupConstraints()
     bindViewModel()
     
-    viewModel.fetchExchangesMap()
+    Task {
+      await viewModel.fetchExchangesMap()
+    }
   }
   
   private func setupNavigation() {
-    title = "Exchanges"
+    title = L10n.ExchangeList.title
     navigationController?.navigationBar.prefersLargeTitles = true
   }
   
@@ -48,20 +50,30 @@ final class ExchangeListViewController: UIViewController {
     contentView.tableView.delegate = self
   }
   
+  @MainActor
   private func bindViewModel() {
     viewModel.onDataUpdated = { [weak self] in
-      DispatchQueue.main.async {
-        self?.contentView.tableView.reloadData()
-      }
+      self?.contentView.tableView.reloadData()
     }
     
     viewModel.onLoadingStatusChanged = { [weak self] isLoading in
-      DispatchQueue.main.async {
-        if isLoading {
-          self?.loadingIndicator.startAnimating()
-        } else {
-          self?.loadingIndicator.stopAnimating()
-        }
+      guard let self else { return }
+      
+      if isLoading && !self.contentView.isRefreshing() {
+        self.loadingIndicator.startAnimating()
+      } else {
+        self.loadingIndicator.stopAnimating()
+      }
+    }
+    
+    viewModel.onError = { [weak self] errorMessage in
+      self?.showError(title: L10n.Error.title, message: errorMessage)
+    }
+    
+    contentView.onRefreshPulled = { [weak self] in
+      Task {
+        await self?.viewModel.fetchExchangesMap()
+        self?.contentView.stopLoading()
       }
     }
   }
@@ -104,3 +116,5 @@ extension ExchangeListViewController: UITableViewDataSource, UITableViewDelegate
     viewModel.didSelectExchange(at: indexPath.row)
   }
 }
+
+extension ExchangeListViewController: ErrorAlertPresentable { }

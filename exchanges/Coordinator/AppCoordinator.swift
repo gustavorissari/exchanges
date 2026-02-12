@@ -1,28 +1,34 @@
 import UIKit
 
 final class AppCoordinator: Coordinator {
-  
-  // MARK: - Properties
-  var navigationController: UINavigationController
-  
-  private var childCoordinators: [Coordinator] = []
-  
-  // MARK: - Init
-  init(navigationController: UINavigationController) {
-    self.navigationController = navigationController
-  }
-  
-  // MARK: - Start
-  func start() {
-    showExchangeList()
-  }
-  
-  // MARK: - Navigation Methods
-  private func showExchangeList() {
-    let exchangeCoordinator = ExchangeCoordinator(navigationController: navigationController)
-    
-    childCoordinators.append(exchangeCoordinator)
-    
-    exchangeCoordinator.start()
-  }
+
+    var navigationController: UINavigationController
+    private var childCoordinators: [Coordinator] = []
+    private let service: ExchangeServiceProtocol
+
+    init(
+        navigationController: UINavigationController,
+        service: ExchangeServiceProtocol
+    ) {
+        self.navigationController = navigationController
+        self.service = service
+    }
+
+    func start() {
+        showExchangeList()
+    }
+
+    private func showExchangeList() {
+        let exchangeCoordinator = ExchangeCoordinator(
+            navigationController: navigationController,
+            service: service
+        )
+
+        childCoordinators.append(exchangeCoordinator)
+        exchangeCoordinator.start()
+    }
+
+    func didFinish(_ coordinator: Coordinator) {
+        childCoordinators.removeAll { $0 === coordinator }
+    }
 }
