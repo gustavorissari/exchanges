@@ -38,9 +38,9 @@ final class DefaultAppCoordinatorFactoryTests: XCTestCase {
       return
     }
     
+    await Task.yield()
+    
     XCTAssertEqual(exchangeCoordinator.navigationController, navigationController)
     XCTAssertTrue(exchangeCoordinator.service === mockService)
-    
-    await Task.yield()
   }
 }

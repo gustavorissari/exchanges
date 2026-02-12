@@ -43,10 +43,10 @@ final class ExchangeFactoryTests: XCTestCase {
       return
     }
     
+    await Task.yield()
+    
     XCTAssertNotNil(listVC.viewModel)
     XCTAssertTrue(listVC.viewModel.coordinator === mockCoordinator)
-    
-    await Task.yield()
   }
   
   func test_makeExchangeDetail_shouldReturnExchangeDetailViewController() async {
@@ -67,8 +67,8 @@ final class ExchangeFactoryTests: XCTestCase {
       return
     }
     
-    XCTAssertTrue(detailVC.coordinator === mockCoordinator)
-    
     await Task.yield()
+    
+    XCTAssertTrue(detailVC.coordinator === mockCoordinator)
   }
 }
