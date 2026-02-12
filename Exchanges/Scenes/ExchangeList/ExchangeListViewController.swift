@@ -2,7 +2,7 @@ import UIKit
 
 final class ExchangeListViewController: UIViewController {
   
-  private let viewModel: ExchangeListViewModel
+  let viewModel: ExchangeListViewModel
   private let contentView = ExchangeListView()
   
   // MARK: - UI Components

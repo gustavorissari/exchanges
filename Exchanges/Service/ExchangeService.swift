@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - Protocol
-protocol ExchangeServiceProtocol {
+protocol ExchangeServiceProtocol: AnyObject {
   func fetchExchangesMap() async throws -> [ExchangeMapModel]
   func fetchExchangesInfo(ids: String) async throws -> [String: ExchangeInfoModel]?
   func fetchExchangesAssets(id: String) async throws -> [ExchangeAssetsModel]

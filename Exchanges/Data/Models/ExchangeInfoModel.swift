@@ -47,4 +47,32 @@ struct ExchangeInfoModel: Decodable {
 
 struct ExchangeUrls: Decodable {
   let website: [String]?
+  
+  init(website: [String]?) {
+    self.website = website
+  }
+}
+
+extension ExchangeInfoModel {
+  init(
+    id: String? = nil,
+    name: String? = nil,
+    logo: String? = nil,
+    spotVolumeUsd: Double? = nil,
+    dateLaunched: String? = nil,
+    description: String? = nil,
+    urls: ExchangeUrls? = nil,
+    makerFee: Double? = nil,
+    takerFee: Double? = nil
+  ) {
+    self.id = id
+    self.name = name
+    self.logo = logo
+    self.spotVolumeUsd = spotVolumeUsd
+    self.dateLaunched = dateLaunched
+    self.description = description
+    self.urls = urls
+    self.makerFee = makerFee
+    self.takerFee = takerFee
+  }
 }

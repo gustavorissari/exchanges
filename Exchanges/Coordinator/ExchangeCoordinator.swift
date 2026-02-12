@@ -2,44 +2,37 @@ import SafariServices
 import UIKit
 
 class ExchangeCoordinator: Coordinator {
-  private var service: ExchangeServiceProtocol
-  
+  var service: ExchangeServiceProtocol
   var navigationController: UINavigationController
+  private let factory: ExchangeFactory
   
   init(
     navigationController: UINavigationController,
-    service: ExchangeServiceProtocol
+    service: ExchangeServiceProtocol,
+    factory: ExchangeFactory = DefaultExchangeFactory()
   ) {
     self.navigationController = navigationController
     self.service = service
+    self.factory = factory
   }
   
   func start() {
-    let viewModel = ExchangeListViewModel(service: service)
-    viewModel.coordinator = self
-    let viewController = ExchangeListViewController(viewModel: viewModel)
-    
+    let viewController = factory.makeExchangeList(service: service, coordinator: self)
     navigationController.pushViewController(viewController, animated: true)
   }
   
   func goToDetails(with exchangeInfo: ExchangeInfoModel) {
-    let viewModel = ExchangeDetailViewModel(exchangeInfo: exchangeInfo, service: service)
-    let viewController = ExchangeDetailViewController(viewModel: viewModel)
-    viewController.coordinator = self
-    
+    let viewController = factory.makeExchangeDetail(exchangeInfo: exchangeInfo, service: service, coordinator: self)
     navigationController.pushViewController(viewController, animated: true)
   }
 }
 
 extension ExchangeCoordinator {
   func openWebsite(urlPath: String) {
-    guard let url = URL(string: urlPath) else {
-      print("URL Inválida: \(urlPath)")
-      return
-    }
+    guard let url = URL(string: urlPath) else { return }
     
     let safariVC = SFSafariViewController(url: url)
-    safariVC.modalPresentationStyle = UIModalPresentationStyle.pageSheet
+    safariVC.modalPresentationStyle = .pageSheet
     navigationController.present(safariVC, animated: true)
   }
 }
