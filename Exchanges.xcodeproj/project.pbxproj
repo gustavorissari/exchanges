@@ -28,24 +28,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B07A7A492F3BB60A00FEBF9F /* exchanges.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = exchanges.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B07A7A5F2F3BB60C00FEBF9F /* exchangesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = exchangesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B07A7A692F3BB60C00FEBF9F /* exchangesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = exchangesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B07A7A492F3BB60A00FEBF9F /* Exchanges.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exchanges.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B07A7A5F2F3BB60C00FEBF9F /* ExchangesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExchangesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B07A7A692F3BB60C00FEBF9F /* ExchangesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExchangesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B07A7A712F3BB60C00FEBF9F /* Exceptions for "exchanges" folder in "exchanges" target */ = {
+		B07A7A712F3BB60C00FEBF9F /* Exceptions for "Exchanges" folder in "Exchanges" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Resources/Localizable.strings",
 				Application/Info.plist,
 			);
-			target = B07A7A482F3BB60A00FEBF9F /* exchanges */;
+			target = B07A7A482F3BB60A00FEBF9F /* Exchanges */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		B07A7AE92F3E05EB00FEBF9F /* Exceptions for "exchanges" folder in "Compile Sources" phase from "exchanges" target */ = {
+		B07A7AE92F3E05EB00FEBF9F /* Exceptions for "Exchanges" folder in "Compile Sources" phase from "Exchanges" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = B07A7A452F3BB60A00FEBF9F /* Sources */;
 			membershipExceptions = (
@@ -55,23 +55,23 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		B07A7A4B2F3BB60A00FEBF9F /* exchanges */ = {
+		B07A7A4B2F3BB60A00FEBF9F /* Exchanges */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B07A7A712F3BB60C00FEBF9F /* Exceptions for "exchanges" folder in "exchanges" target */,
-				B07A7AE92F3E05EB00FEBF9F /* Exceptions for "exchanges" folder in "Compile Sources" phase from "exchanges" target */,
+				B07A7A712F3BB60C00FEBF9F /* Exceptions for "Exchanges" folder in "Exchanges" target */,
+				B07A7AE92F3E05EB00FEBF9F /* Exceptions for "Exchanges" folder in "Compile Sources" phase from "Exchanges" target */,
 			);
-			path = exchanges;
+			path = Exchanges;
 			sourceTree = "<group>";
 		};
-		B07A7A622F3BB60C00FEBF9F /* exchangesTests */ = {
+		B07A7A622F3BB60C00FEBF9F /* ExchangesTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = exchangesTests;
+			path = ExchangesTests;
 			sourceTree = "<group>";
 		};
-		B07A7A6C2F3BB60C00FEBF9F /* exchangesUITests */ = {
+		B07A7A6C2F3BB60C00FEBF9F /* ExchangesUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = exchangesUITests;
+			path = ExchangesUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -105,9 +105,9 @@
 		B07A7A402F3BB60A00FEBF9F = {
 			isa = PBXGroup;
 			children = (
-				B07A7A4B2F3BB60A00FEBF9F /* exchanges */,
-				B07A7A622F3BB60C00FEBF9F /* exchangesTests */,
-				B07A7A6C2F3BB60C00FEBF9F /* exchangesUITests */,
+				B07A7A4B2F3BB60A00FEBF9F /* Exchanges */,
+				B07A7A622F3BB60C00FEBF9F /* ExchangesTests */,
+				B07A7A6C2F3BB60C00FEBF9F /* ExchangesUITests */,
 				B07A7A4A2F3BB60A00FEBF9F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,9 +115,9 @@
 		B07A7A4A2F3BB60A00FEBF9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B07A7A492F3BB60A00FEBF9F /* exchanges.app */,
-				B07A7A5F2F3BB60C00FEBF9F /* exchangesTests.xctest */,
-				B07A7A692F3BB60C00FEBF9F /* exchangesUITests.xctest */,
+				B07A7A492F3BB60A00FEBF9F /* Exchanges.app */,
+				B07A7A5F2F3BB60C00FEBF9F /* ExchangesTests.xctest */,
+				B07A7A692F3BB60C00FEBF9F /* ExchangesUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,9 +125,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B07A7A482F3BB60A00FEBF9F /* exchanges */ = {
+		B07A7A482F3BB60A00FEBF9F /* Exchanges */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B07A7A722F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "exchanges" */;
+			buildConfigurationList = B07A7A722F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "Exchanges" */;
 			buildPhases = (
 				B07A7A452F3BB60A00FEBF9F /* Sources */,
 				B07A7A462F3BB60A00FEBF9F /* Frameworks */,
@@ -138,19 +138,19 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				B07A7A4B2F3BB60A00FEBF9F /* exchanges */,
+				B07A7A4B2F3BB60A00FEBF9F /* Exchanges */,
 			);
-			name = exchanges;
+			name = Exchanges;
 			packageProductDependencies = (
 				B07A7ACE2F3CAEE300FEBF9F /* Kingfisher */,
 			);
 			productName = exchanges;
-			productReference = B07A7A492F3BB60A00FEBF9F /* exchanges.app */;
+			productReference = B07A7A492F3BB60A00FEBF9F /* Exchanges.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B07A7A5E2F3BB60C00FEBF9F /* exchangesTests */ = {
+		B07A7A5E2F3BB60C00FEBF9F /* ExchangesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B07A7A772F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "exchangesTests" */;
+			buildConfigurationList = B07A7A772F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "ExchangesTests" */;
 			buildPhases = (
 				B07A7A5B2F3BB60C00FEBF9F /* Sources */,
 				B07A7A5C2F3BB60C00FEBF9F /* Frameworks */,
@@ -162,18 +162,18 @@
 				B07A7A612F3BB60C00FEBF9F /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				B07A7A622F3BB60C00FEBF9F /* exchangesTests */,
+				B07A7A622F3BB60C00FEBF9F /* ExchangesTests */,
 			);
-			name = exchangesTests;
+			name = ExchangesTests;
 			packageProductDependencies = (
 			);
 			productName = exchangesTests;
-			productReference = B07A7A5F2F3BB60C00FEBF9F /* exchangesTests.xctest */;
+			productReference = B07A7A5F2F3BB60C00FEBF9F /* ExchangesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B07A7A682F3BB60C00FEBF9F /* exchangesUITests */ = {
+		B07A7A682F3BB60C00FEBF9F /* ExchangesUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B07A7A7A2F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "exchangesUITests" */;
+			buildConfigurationList = B07A7A7A2F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "ExchangesUITests" */;
 			buildPhases = (
 				B07A7A652F3BB60C00FEBF9F /* Sources */,
 				B07A7A662F3BB60C00FEBF9F /* Frameworks */,
@@ -185,13 +185,13 @@
 				B07A7A6B2F3BB60C00FEBF9F /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				B07A7A6C2F3BB60C00FEBF9F /* exchangesUITests */,
+				B07A7A6C2F3BB60C00FEBF9F /* ExchangesUITests */,
 			);
-			name = exchangesUITests;
+			name = ExchangesUITests;
 			packageProductDependencies = (
 			);
 			productName = exchangesUITests;
-			productReference = B07A7A692F3BB60C00FEBF9F /* exchangesUITests.xctest */;
+			productReference = B07A7A692F3BB60C00FEBF9F /* ExchangesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -217,7 +217,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B07A7A442F3BB60A00FEBF9F /* Build configuration list for PBXProject "exchanges" */;
+			buildConfigurationList = B07A7A442F3BB60A00FEBF9F /* Build configuration list for PBXProject "Exchanges" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -234,9 +234,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B07A7A482F3BB60A00FEBF9F /* exchanges */,
-				B07A7A5E2F3BB60C00FEBF9F /* exchangesTests */,
-				B07A7A682F3BB60C00FEBF9F /* exchangesUITests */,
+				B07A7A482F3BB60A00FEBF9F /* Exchanges */,
+				B07A7A5E2F3BB60C00FEBF9F /* ExchangesTests */,
+				B07A7A682F3BB60C00FEBF9F /* ExchangesUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -292,12 +292,12 @@
 /* Begin PBXTargetDependency section */
 		B07A7A612F3BB60C00FEBF9F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B07A7A482F3BB60A00FEBF9F /* exchanges */;
+			target = B07A7A482F3BB60A00FEBF9F /* Exchanges */;
 			targetProxy = B07A7A602F3BB60C00FEBF9F /* PBXContainerItemProxy */;
 		};
 		B07A7A6B2F3BB60C00FEBF9F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B07A7A482F3BB60A00FEBF9F /* exchanges */;
+			target = B07A7A482F3BB60A00FEBF9F /* Exchanges */;
 			targetProxy = B07A7A6A2F3BB60C00FEBF9F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -312,7 +312,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3NC455DU88;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = exchanges/Application/Info.plist;
+				INFOPLIST_FILE = Exchanges/Application/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Exchanges;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -347,7 +347,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3NC455DU88;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = exchanges/Application/Info.plist;
+				INFOPLIST_FILE = Exchanges/Application/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Exchanges;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -512,7 +512,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/exchanges.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/exchanges";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exchanges.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Exchanges";
 			};
 			name = Debug;
 		};
@@ -534,7 +534,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/exchanges.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/exchanges";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exchanges.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Exchanges";
 			};
 			name = Release;
 		};
@@ -581,7 +581,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B07A7A442F3BB60A00FEBF9F /* Build configuration list for PBXProject "exchanges" */ = {
+		B07A7A442F3BB60A00FEBF9F /* Build configuration list for PBXProject "Exchanges" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B07A7A752F3BB60C00FEBF9F /* Debug */,
@@ -590,7 +590,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B07A7A722F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "exchanges" */ = {
+		B07A7A722F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "Exchanges" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B07A7A732F3BB60C00FEBF9F /* Debug */,
@@ -599,7 +599,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B07A7A772F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "exchangesTests" */ = {
+		B07A7A772F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "ExchangesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B07A7A782F3BB60C00FEBF9F /* Debug */,
@@ -608,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B07A7A7A2F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "exchangesUITests" */ = {
+		B07A7A7A2F3BB60C00FEBF9F /* Build configuration list for PBXNativeTarget "ExchangesUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B07A7A7B2F3BB60C00FEBF9F /* Debug */,

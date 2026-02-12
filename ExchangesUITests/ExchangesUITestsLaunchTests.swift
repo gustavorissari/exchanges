@@ -1,13 +1,6 @@
-//
-//  exchangesUITestsLaunchTests.swift
-//  exchangesUITests
-//
-//  Created by Gustavo Rissari Correia on 10/02/26.
-//
-
 import XCTest
 
-final class exchangesUITestsLaunchTests: XCTestCase {
+final class ExchangesUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

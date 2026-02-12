@@ -1,14 +1,7 @@
-//
-//  exchangesTests.swift
-//  exchangesTests
-//
-//  Created by Gustavo Rissari Correia on 10/02/26.
-//
-
 import XCTest
-@testable import exchanges
+@testable import Exchanges
 
-final class exchangesTests: XCTestCase {
+final class ExchangesTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
