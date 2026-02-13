@@ -1,8 +1,10 @@
-@testable import Exchanges
+// @testable import Exchanges
 
 final class MockExchangeService: ExchangeServiceProtocol {
   
-  var mapResultToReturn: Result<[ExchangeMapModel], Error> = .success([])
+  var mapResultToReturn: Result<[ExchangeMapModel], Error> = .success(
+    [ExchangeMapModel.mock]
+  )
   var isFetchExchangesMapCalled = false
   
   func fetchExchangesMap() async throws -> [ExchangeMapModel] {
@@ -16,7 +18,9 @@ final class MockExchangeService: ExchangeServiceProtocol {
     }
   }
   
-  var infoResultToReturn: Result<[String: ExchangeInfoModel]?, Error> = .success([:])
+  var infoResultToReturn: Result<[String: ExchangeInfoModel]?, Error> = .success(
+    ["1": ExchangeInfoModel.mock]
+  )
   var isFetchExchangesInfoCalled = false
   var infoIds: String = String()
   
@@ -32,7 +36,9 @@ final class MockExchangeService: ExchangeServiceProtocol {
     }
   }
   
-  var assetsResultToReturn: Result<[ExchangeAssetsModel], Error> = .success([])
+  var assetsResultToReturn: Result<[ExchangeAssetsModel], Error> = .success(
+    [ExchangeAssetsModel.mock]
+  )
   var isFetchExchangesAssetsCalled = false
   var assetsId: String = String()
   

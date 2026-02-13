@@ -5,18 +5,18 @@ import UIKit
 final class AppCoordinatorTests: XCTestCase {
   
   private var sut: AppCoordinator!
-  private var mockNavigationController: UINavigationController!
   private var mockService: MockExchangeService!
   private var mockFactory: MockAppCoordinatorFactory!
+  private var spyNavigationController: SpyNavigationController!
   
   override func setUp() {
     super.setUp()
-    mockNavigationController = UINavigationController()
+    spyNavigationController = SpyNavigationController()
     mockService = MockExchangeService()
     mockFactory = MockAppCoordinatorFactory()
     
     sut = AppCoordinator(
-      navigationController: mockNavigationController,
+      navigationController: spyNavigationController,
       service: mockService,
       factory: mockFactory
     )
@@ -24,9 +24,9 @@ final class AppCoordinatorTests: XCTestCase {
   
   override func tearDown() {
     sut = nil
-    mockNavigationController = nil
     mockService = nil
     mockFactory = nil
+    spyNavigationController = nil
     super.tearDown()
   }
   
@@ -61,7 +61,7 @@ final class AppCoordinatorTests: XCTestCase {
   func test_didFinish_doesNotRemoveDifferentCoordinatorInstance() {
     // Given:
     sut.start()
-    let unrelatedCoordinator = MockChildCoordinator(navigationController: mockNavigationController)
+    let unrelatedCoordinator = MockChildCoordinator(navigationController: spyNavigationController)
     
     // When:
     sut.didFinish(unrelatedCoordinator)

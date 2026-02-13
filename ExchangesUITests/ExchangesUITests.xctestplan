@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "B12C6752-6AD5-4DC6-A73C-8332885F26CC",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Exchanges.xcodeproj",
+        "identifier" : "B07A7A682F3BB60C00FEBF9F",
+        "name" : "ExchangesUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

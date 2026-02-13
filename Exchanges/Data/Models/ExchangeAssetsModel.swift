@@ -5,3 +5,11 @@ struct ExchangeAssetsModel: Decodable {
     case currency
   }
 }
+
+extension ExchangeAssetsModel {
+  static var mock: ExchangeAssetsModel {
+    return ExchangeAssetsModel(
+      currency: .mock
+    )
+  }
+}

@@ -4,9 +4,9 @@ import XCTest
 @MainActor
 final class ExchangeDetailViewModelTests: XCTestCase {
   
-  var sut: ExchangeDetailViewModel!
-  var mockService: MockExchangeService!
-  var mockExchangeInfoModel: ExchangeInfoModel!
+  private var sut: ExchangeDetailViewModel!
+  private var mockService: MockExchangeService!
+  private var mockExchangeInfoModel: ExchangeInfoModel!
   
   override func setUp() {
     super.setUp()
@@ -43,11 +43,6 @@ final class ExchangeDetailViewModelTests: XCTestCase {
   func test_fetchExchangesAssets_Success_PopulatesCurrencies() async {
     // Given
     sut = ExchangeDetailViewModel(exchangeInfo: mockExchangeInfoModel, service: mockService)
-    
-    let mockCurrency = CurrencyModel.mock
-    let mockAssets = [ExchangeAssetsModel(currency: mockCurrency)]
-    
-    mockService.assetsResultToReturn = .success(mockAssets)
     
     let expectation = expectation(description: "Currencies updated callback")
     sut.onCurrenciesUpdated = { expectation.fulfill() }

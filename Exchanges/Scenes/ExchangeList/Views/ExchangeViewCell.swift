@@ -94,6 +94,15 @@ final class ExchangeViewCell: UITableViewCell {
         options: [.transition(.fade(0.2))]
       )
     }
+    
+    configureAccessibility()
+  }
+  
+  private func configureAccessibility() {
+    accessibilityIdentifier = "exchange_cell"
+    titleLabel.accessibilityIdentifier = "exchange_title_label"
+    volumeLabel.accessibilityIdentifier = "exchange_volume_label"
+    dateLabel.accessibilityIdentifier = "exchange_date_label"
   }
 }
 

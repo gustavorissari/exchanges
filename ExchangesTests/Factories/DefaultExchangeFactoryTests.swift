@@ -9,12 +9,14 @@ final class ExchangeFactoryTests: XCTestCase {
   private var mockService: MockExchangeService!
   private var mockNavigationController: UINavigationController!
   private var mockCoordinator: ExchangeCoordinator!
+  private var spyNavigationController: SpyNavigationController!
   
   override func setUp() {
     super.setUp()
+    spyNavigationController = SpyNavigationController()
     sut = DefaultExchangeFactory()
     mockService = MockExchangeService()
-    mockNavigationController = UINavigationController()
+    mockNavigationController = spyNavigationController
     
     mockCoordinator = ExchangeCoordinator(
       navigationController: mockNavigationController,
@@ -27,6 +29,7 @@ final class ExchangeFactoryTests: XCTestCase {
     mockService = nil
     mockNavigationController = nil
     mockCoordinator = nil
+    spyNavigationController = nil
     super.tearDown()
   }
   

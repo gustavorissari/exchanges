@@ -7,19 +7,19 @@ final class DefaultAppCoordinatorFactoryTests: XCTestCase {
   
   private var sut: DefaultAppCoordinatorFactory!
   private var mockService: MockExchangeService!
-  private var navigationController: UINavigationController!
+  private var spyNavigationController: SpyNavigationController!
   
   override func setUp() {
     super.setUp()
     sut = DefaultAppCoordinatorFactory()
     mockService = MockExchangeService()
-    navigationController = UINavigationController()
+    spyNavigationController = SpyNavigationController()
   }
   
   override func tearDown() {
     sut = nil
     mockService = nil
-    navigationController = nil
+    spyNavigationController = nil
     super.tearDown()
   }
   
@@ -28,7 +28,7 @@ final class DefaultAppCoordinatorFactoryTests: XCTestCase {
   func test_makeExchangeCoordinator_shouldReturnExchangeCoordinatorWithCorrectDependencies() async {
     // When
     let coordinator = sut.makeExchangeCoordinator(
-      navigationController: navigationController,
+      navigationController: spyNavigationController,
       service: mockService
     )
     
@@ -40,7 +40,7 @@ final class DefaultAppCoordinatorFactoryTests: XCTestCase {
     
     await Task.yield()
     
-    XCTAssertEqual(exchangeCoordinator.navigationController, navigationController)
+    XCTAssertEqual(exchangeCoordinator.navigationController, spyNavigationController)
     XCTAssertTrue(exchangeCoordinator.service === mockService)
   }
 }

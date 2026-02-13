@@ -9,7 +9,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = scene as? UIWindowScene else { return }
     
     let navigationController = UINavigationController()
-    let service = ExchangeService()
+    
+    var service: ExchangeServiceProtocol = ExchangeService()
+    if ProcessInfo.processInfo.arguments.contains("--uitesting") {
+      service = MockExchangeService()
+    }
     
     appCoordinator = AppCoordinator(
       navigationController: navigationController,

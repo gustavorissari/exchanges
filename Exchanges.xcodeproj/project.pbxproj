@@ -49,6 +49,13 @@
 			);
 			target = B07A7A482F3BB60A00FEBF9F /* Exchanges */;
 		};
+		B0FC67122F3F86BF00492240 /* Exceptions for "ExchangesUITests" folder in "ExchangesUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ExchangesUITests.xctestplan,
+			);
+			target = B07A7A682F3BB60C00FEBF9F /* ExchangesUITests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -81,6 +88,9 @@
 		};
 		B07A7A6C2F3BB60C00FEBF9F /* ExchangesUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B0FC67122F3F86BF00492240 /* Exceptions for "ExchangesUITests" folder in "ExchangesUITests" target */,
+			);
 			path = ExchangesUITests;
 			sourceTree = "<group>";
 		};
@@ -564,7 +574,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = exchanges;
+				TEST_TARGET_NAME = Exchanges;
 			};
 			name = Debug;
 		};
@@ -584,7 +594,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = exchanges;
+				TEST_TARGET_NAME = Exchanges;
 			};
 			name = Release;
 		};

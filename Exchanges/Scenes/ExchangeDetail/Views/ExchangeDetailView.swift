@@ -122,7 +122,9 @@ final class ExchangeDetailView: UIView {
     idLabel.text = String(format: L10n.ExchangeDetail.idLabel, viewModel.id)
     feeLabel.text = String(format: L10n.ExchangeDetail.feeLabel, viewModel.makerFee, viewModel.takerFee)
     launchDateLabel.text = String(format: L10n.ExchangeDetail.launchedLabel, viewModel.launchDate)
-    websiteLabel.text = viewModel.websiteUrl ?? L10n.EmptyText.empty
+    websiteLabel.text = viewModel.websiteUrl
+    
+    configureAccessibility(viewModel: viewModel)
     
     if let urlString = viewModel.logoUrl, let url = URL(string: urlString) {
       logoImageView.kf.setImage(with: url, placeholder: UIImage(systemName: "bitcoinsign.circle.fill"))
@@ -146,6 +148,26 @@ final class ExchangeDetailView: UIView {
     label.text = String(format: L10n.ExchangeDetail.currencyRow, name, price.toCurrency())
     label.numberOfLines = 1
     return label
+  }
+  
+  private func configureAccessibility(viewModel: ExchangeDetailViewModel) {
+    scrollView.isAccessibilityElement = false
+    contentView.isAccessibilityElement = false
+    mainStackView.isAccessibilityElement = false
+    
+    nameLabel.isAccessibilityElement = true
+    nameLabel.accessibilityIdentifier = "exchange_name_label"
+    
+    descriptionLabel.isAccessibilityElement = true
+    descriptionLabel.accessibilityIdentifier = "exchange_description_label"
+    
+    websiteLabel.isAccessibilityElement = true
+    websiteLabel.accessibilityIdentifier = "exchange_website_label"
+    websiteLabel.accessibilityLabel = viewModel.websiteUrl
+    websiteLabel.accessibilityTraits = .link
+    
+    logoImageView.isAccessibilityElement = true
+    logoImageView.accessibilityIdentifier = "exchange_logo_image"
   }
 }
 

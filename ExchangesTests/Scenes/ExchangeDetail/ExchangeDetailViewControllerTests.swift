@@ -4,16 +4,18 @@ import XCTest
 @MainActor
 final class ExchangeDetailViewControllerTests: XCTestCase {
   
-  var sut: ExchangeDetailViewController!
-  var viewModel: ExchangeDetailViewModel!
-  var mockService: MockExchangeService!
-  var mockCoordinator: MockExchangeCoordinator!
+  private var sut: ExchangeDetailViewController!
+  private var viewModel: ExchangeDetailViewModel!
+  private var mockService: MockExchangeService!
+  private var mockCoordinator: MockExchangeCoordinator!
+  private var spyNavigationController: SpyNavigationController!
   
   override func setUp() {
     super.setUp()
+    spyNavigationController = SpyNavigationController()
     mockService = MockExchangeService()
     mockCoordinator = MockExchangeCoordinator(
-      navigationController: UINavigationController(),
+      navigationController: spyNavigationController,
       service: mockService
     )
     
@@ -30,6 +32,7 @@ final class ExchangeDetailViewControllerTests: XCTestCase {
     viewModel = nil
     mockService = nil
     mockCoordinator = nil
+    spyNavigationController = nil
     super.tearDown()
   }
   

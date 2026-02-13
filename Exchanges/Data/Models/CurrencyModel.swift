@@ -7,3 +7,12 @@ struct CurrencyModel: Decodable {
     case priceUsd = "price_usd"
   }
 }
+
+extension CurrencyModel {
+  static var mock: CurrencyModel {
+    return CurrencyModel(
+      name: "Coin",
+      priceUsd: 150.0
+    )
+  }
+}

@@ -35,8 +35,8 @@ final class ExchangeDetailViewModel {
     exchangeInfo.description ?? L10n.EmptyText.empty
   }
   
-  var websiteUrl: String? {
-    exchangeInfo.urls?.website?.first
+  var websiteUrl: String {
+    exchangeInfo.urls?.website?.first ?? L10n.EmptyText.empty
   }
   
   var volume: String {

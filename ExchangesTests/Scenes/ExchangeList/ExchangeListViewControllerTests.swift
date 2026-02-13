@@ -9,12 +9,14 @@ final class ExchangeListViewControllerTests: XCTestCase {
   private var mockViewModel: ExchangeListViewModel!
   private var mockService: MockExchangeService!
   private var mockCoordinator: ExchangeCoordinator!
+  private var spyNavigationController: SpyNavigationController!
   
   override func setUp() {
     super.setUp()
+    spyNavigationController = SpyNavigationController()
     mockService = MockExchangeService()
     mockCoordinator = ExchangeCoordinator(
-      navigationController: UINavigationController(),
+      navigationController: spyNavigationController,
       service: mockService
     )
     
@@ -29,7 +31,12 @@ final class ExchangeListViewControllerTests: XCTestCase {
     mockViewModel = nil
     mockService = nil
     mockCoordinator = nil
+    spyNavigationController = nil
     super.tearDown()
+  }
+  
+  private func findLoadingIndicator(in view: UIView) -> UIActivityIndicatorView? {
+    return view.subviews.compactMap { $0 as? UIActivityIndicatorView }.first
   }
   
   // MARK: - Tests
@@ -42,20 +49,22 @@ final class ExchangeListViewControllerTests: XCTestCase {
     XCTAssertEqual(sut.title, L10n.ExchangeList.title)
   }
   
-  func test_loadingIndicator_shouldAnimateWhenViewModelIsLoading() async {
-    // When
+  func test_loadingIndicator_shouldAnimateWhenViewModelIsLoading() {
+    // Given
     sut.loadViewIfNeeded()
+    
+    // When
     mockViewModel.onLoadingStatusChanged?(true)
     
     // Then
     let indicator = findLoadingIndicator(in: sut.view)
     XCTAssertTrue(indicator?.isAnimating ?? false)
     
-    await Task.yield()
-  }
-  
-  private func findLoadingIndicator(in view: UIView) -> UIActivityIndicatorView? {
-    return view.subviews.compactMap { $0 as? UIActivityIndicatorView }.first
+    // When
+    mockViewModel.onLoadingStatusChanged?(false)
+    
+    // Then
+    XCTAssertFalse(indicator?.isAnimating ?? true)
   }
   
   func test_viewDidLoad_whenServiceFails_shouldShowErrorAlert() async {
@@ -65,6 +74,24 @@ final class ExchangeListViewControllerTests: XCTestCase {
     
     // When
     sut.loadViewIfNeeded()
+    
+    await Task.yield()
+    
+    // Then
+    XCTAssertTrue(mockService.isFetchExchangesMapCalled)
+  }
+  
+  func test_onRefreshPulled_shouldTriggerFetchAndStopLoading() async {
+    // Given
+    sut.loadViewIfNeeded()
+    mockService.isFetchExchangesMapCalled = false
+    
+    // When
+    let listView = sut.view as? ExchangeListView
+    
+    await MainActor.run {
+      listView?.onRefreshPulled?()
+    }
     
     await Task.yield()
     
