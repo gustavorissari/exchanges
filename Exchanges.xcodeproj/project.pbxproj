@@ -34,6 +34,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B04868B72F3F6121008522CF /* Exceptions for "ExchangesTests" folder in "ExchangesTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ExchangesTests.xctestplan,
+			);
+			target = B07A7A5E2F3BB60C00FEBF9F /* ExchangesTests */;
+		};
 		B07A7A712F3BB60C00FEBF9F /* Exceptions for "Exchanges" folder in "Exchanges" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -66,6 +73,9 @@
 		};
 		B07A7A622F3BB60C00FEBF9F /* ExchangesTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B04868B72F3F6121008522CF /* Exceptions for "ExchangesTests" folder in "ExchangesTests" target */,
+			);
 			path = ExchangesTests;
 			sourceTree = "<group>";
 		};

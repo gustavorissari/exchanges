@@ -25,9 +25,7 @@ class ExchangeCoordinator: Coordinator {
     let viewController = factory.makeExchangeDetail(exchangeInfo: exchangeInfo, service: service, coordinator: self)
     navigationController.pushViewController(viewController, animated: true)
   }
-}
-
-extension ExchangeCoordinator {
+  
   func openWebsite(urlPath: String) {
     guard let url = URL(string: urlPath) else { return }
     

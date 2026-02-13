@@ -1,21 +1,5 @@
 import Foundation
 
-enum NetworkError: Error {
-  case invalidURL
-  case noData
-  case decodingError
-  case serverError(String)
-  case unauthorized
-}
-
-enum HTTPMethod: String {
-  case GET
-  case POST
-  case PUT
-  case DELETE
-  case PATCH
-}
-
 protocol NetworkManagerProtocol {
   func request<T: Decodable>(endpoint: String, method: HTTPMethod) async throws -> T
 }
@@ -49,19 +33,6 @@ final class NetworkManager: NetworkManagerProtocol {
       if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 401 {
         throw NetworkError.unauthorized
       }
-      
-      // Optional debug print (remove in production)
-      //      if T.self is ResponseDTO<[String: ExchangeInfoModel]>.Type {
-      //        if let jsonObject = try? JSONSerialization.jsonObject(with: data),
-      //           let prettyData = try? JSONSerialization.data(
-      //            withJSONObject: jsonObject,
-      //            options: .prettyPrinted
-      //           ),
-      //           let jsonString = String(data: prettyData, encoding: .utf8) {
-      //          print(jsonString)
-      //        }
-      //      }
-      // Optional debug print (remove in production)
       
       return try JSONDecoder().decode(T.self, from: data)
     } catch let error as NetworkError {
