@@ -32,9 +32,6 @@ final class ExchangeListViewModelTests: XCTestCase {
   // MARK: - Navigation Tests
   
   func test_didSelectExchange_TriggersNavigation() async {
-    // Given:
-    let targetExchange = ExchangeInfoModel(id: "1", spotVolumeUsd: 5000)
-    
     await sut.fetchExchangesMap()
     
     // When

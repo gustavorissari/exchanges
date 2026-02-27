@@ -43,6 +43,19 @@ final class AppCoordinatorTests: XCTestCase {
     XCTAssertTrue(child?.startCalled == true)
   }
   
+  func test_start_whenCalledMoreThanOnce_doesNotCreateDuplicateCoordinator() {
+    // Given:
+    sut.start()
+    let firstCoordinator = mockFactory.lastCreatedCoordinator
+    
+    // When:
+    sut.start()
+    
+    // Then:
+    XCTAssertEqual(sut.childCoordinators.count, 1)
+    XCTAssertTrue(mockFactory.lastCreatedCoordinator === firstCoordinator)
+  }
+  
   func test_didFinish_removesChildCoordinatorFromStack() {
     // Given:
     sut.start()
